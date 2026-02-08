@@ -3,6 +3,7 @@
 #include <string.h>     // Pour manipuler les chaines de caracteres (strcmp, strlen...)
 #include <time.h>       // Pour initialiser le generateur de nombres aleatoires
 #include <ctype.h>      // Pour les fonctions sur les caracteres (toupper...)
+#include "raylib.h"
 
 // Structure representant les informations d'un joueur
 typedef struct {
@@ -155,11 +156,24 @@ void sauvegarderJoueur(Joueur joueur) {
     printf("Progression sauvegardee au niveau %d.\nAu revoir!\n", joueur.niveau);
 }
 int main() {
+    // Initialization
+    const int screenWidth = 800; // width de la fenetre
+    const int screenHeight = 800; // height de la fenetre
+    InitWindow(screenWidth, screenHeight, "Jeu de mots"); // Initialisation de la fenetre du jeu
+    SetTargetFPS(60); // 60 images par seconde
+
     int choix, continuer, longueurMot, nombreMots, motsValides, motExiste, points, dejaUtilise;
     char finalChoix, lettres[11], prenom[20], mot[20];
     char motsJoues[10][20];
     Joueur joueur;
 
+    // main loop
+    while (!WindowShouldClose()) {
+        // Dessiner le menu ou les elements du jeu ici
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+    }
+    
     // === Phase d'accueil du joueur ===
     printf("\n=== LETTRES A MOTS ===\n");
     printf("Entrer votre prenom: ");
@@ -300,6 +314,8 @@ int main() {
             }
         } while (toupper(finalChoix) != 'O' && toupper(finalChoix) != 'N');
     }
+
+    CloseWindow(); // Fermer la fenetre a la fin du jeu
 
     return 0;
 }
