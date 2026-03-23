@@ -172,9 +172,7 @@ int main() {
         // Dessiner le menu ou les elements du jeu ici
         BeginDrawing();
         ClearBackground(RAYWHITE);
-    }
-    
-    // === Phase d'accueil du joueur ===
+         // === Phase d'accueil du joueur ===
     printf("\n=== LETTRES A MOTS ===\n");
     printf("Entrer votre prenom: ");
     scanf("%s", prenom);
@@ -314,6 +312,148 @@ int main() {
             }
         } while (toupper(finalChoix) != 'O' && toupper(finalChoix) != 'N');
     }
+    }
+    
+    // === Phase d'accueil du joueur ===
+    /* printf("\n=== LETTRES A MOTS ===\n");
+    printf("Entrer votre prenom: ");
+    scanf("%s", prenom);
+
+    // Appel a userCheck() pour charger les infos du joueur ou l'enregistrer
+    joueur = userCheck(prenom);
+
+    // === Menu principal (choix de la partie) ===
+    do {
+        printf("=== Menu de jeu ===\n");
+        printf("1. Nouvelle partie\n");
+        printf("2. Reprendre partie\n");
+        printf("3. Quitter le jeu\n");
+        printf("Entrer votre choix (1/2/3): ");
+        scanf("%d", &choix);
+        printf("\n");
+
+        switch (choix) {
+            case 1:
+                // Initialisation pour une nouvelle partie
+                joueur.niveau = 1;
+                joueur.score = 0;
+                printf("Nouvelle partie commence!\n");
+                printf("Vous etes au niveau %d avec un score %d\n", joueur.niveau, joueur.score);
+                break;
+            case 2:
+                // Reprise de la partie precedente
+                printf("Reprendre la derniere partie!\n");
+                printf("Vous etes au niveau %d avec un score %d\n", joueur.niveau, joueur.score);
+                break;
+            case 3:
+                // Sortie du jeu
+                printf("Au revoir!\n");
+                return 0;
+            default:
+                printf("Choix invalide! Reessayer.\n");
+        }
+    } while (choix != 1 && choix != 2 && choix != 3);
+
+    // === Boucle principale du jeu ===
+    continuer = 1;
+    while (continuer) {
+        // Generation aleatoire des 10 lettres pour ce niveau
+        genererLettres(lettres);
+
+        // Calcul du nombre de mots a trouver selon le niveau
+        nombreMots = 1 + ((joueur.niveau - 1) / 4);
+
+        // Definir la longueur des mots pour ce niveau
+        longueurMot = 2 + ((joueur.niveau - 1) % 4);
+
+        // Affichage des infos du niveau actuel
+        printf("\n--- Niveau %d ---\n", joueur.niveau);
+        printf("Lettres disponibles: ");
+        for (int i = 0; i < 10; i++) {
+            printf("%c ", lettres[i]);
+        }
+
+        printf("\nFormer %d mot(s) de %d lettres pour chacun. Entrer (stop) pour quitter.\n\n", nombreMots, longueurMot);
+
+        motsValides = 0; // Compteur de mots valides saisis
+
+        // Boucle pour que le joueur entre les bons mots
+        while (motsValides < nombreMots) {
+            motExiste = 0;
+
+            do {
+                printf("Mot %d/%d: ", motsValides + 1, nombreMots);
+                scanf("%s", mot);
+
+                // Le joueur peut quitter le jeu a tout moment
+                if ((strcmp(mot, "stop") == 0) || (strcmp(mot, "STOP") == 0)) {
+                    printf("Jeu termine. Score final: %d\n", joueur.score);
+                    sauvegarderJoueur(joueur);
+                    return 0;
+                }
+
+                // Convertir le mot en majuscules
+                for (int i = 0; mot[i] != '\0'; i++) { // parcourir jusqu'a la fin de la chaine
+                    mot[i] = toupper(mot[i]);
+                }
+
+                // Verifier que le mot n'a pas deja ete utilise
+                dejaUtilise = 0;
+                for (int k = 0; k < motsValides; k++) {
+                    if (strcmp(motsJoues[k], mot) == 0) { //compare les mots deja utilises avec le mot entrer
+                        dejaUtilise = 1;
+                        break;
+                    }
+                }
+
+                if (dejaUtilise) {
+                    printf("Vous avez deja utilise ce mot. Essayez un autre.\n");
+                    continue;
+                }
+
+                // Verifier la validite du mot : lettres + dictionnaire
+                points = checkMot(mot, lettres);
+                if (points == longueurMot && motDictionnaire(mot)) {
+                    printf("Mot valide! +%d points.\n", points);
+                    joueur.score += points;
+                    motsValides++;
+
+                    // Sauvegarder le mot utilise
+                    strcpy(motsJoues[motsValides - 1], mot);
+
+                    motExiste = 1;
+                } else {
+                    printf("Mot invalide! Reessayer.\n");
+                }
+
+            } while (!motExiste);
+        }
+
+        // Fin du niveau
+        printf("Niveau %d termine! score: %d\n", joueur.niveau, joueur.score);
+
+        // Demander au joueur s'il veut continuer
+        do {
+            printf("Passez au niveau suivant? (o/n): ");
+            while (getchar() != '\n'); // Vider le buffer
+            scanf("%c", &finalChoix);
+
+            switch (toupper(finalChoix)) {
+                case 'O': // oui, continue au niveau suivant
+                    joueur.niveau++;
+                    printf("\n--> Au niveau suivant:\n");
+                    break;
+                case 'N': //non, quitter
+                    joueur.niveau++;
+                    sauvegarderJoueur(joueur);
+                    printf("\nProgression sauvegardee.\nAu revoir!");
+                    continuer = 0;
+                    break;
+                default:
+                    printf("Choix invalide! Veuillez entrer O ou N.\n");
+            }
+        } while (toupper(finalChoix) != 'O' && toupper(finalChoix) != 'N');
+    } */
 
     CloseWindow(); // Fermer la fenetre a la fin du jeu
 
